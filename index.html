@@ -673,56 +673,49 @@ const sessions = [
     ]
   },
   {
-    id: "di", label: "Di", type: "pull", typeName: "Pull",
-    name: "Pull", time: "~40 min",
-    tip: "Rug, biceps, achterste schouder. Focus op mind-muscle connection in de rug.",
-    exercises: [
-      { id: "bent_row",   name: "Bent-over row",       sets: 4, reps: "10" },
-      { id: "single_row", name: "Single-arm row",       sets: 3, reps: "12 p.z." },
-      { id: "band_pull",  name: "Band pull-apart",      sets: 3, reps: "15", noweight: true },
-      { id: "curl",       name: "Dumbbell curl",        sets: 3, reps: "12" },
-      { id: "hammer",     name: "Hammer curl",          sets: 3, reps: "12" },
-    ]
-  },
-  {
-    id: "wo", label: "Wo", type: "rust", typeName: "Rust",
+    id: "di", label: "Di", type: "rust", typeName: "Rust",
     name: "Rust", time: "—",
     tip: "Volledige rustdag. Goed eten en slapen voor herstel.",
     exercises: []
   },
   {
-    id: "do", label: "Do", type: "cardio", typeName: "Cardio + core",
-    name: "Cardio + core", time: "~35 min",
-    tip: "Actieve rustdag tussen de krachtsessies. Licht zweten, niet uitputten.",
+    id: "wo", label: "Wo", type: "pull", typeName: "Pull",
+    name: "Wazige Woensdag", time: "~40 min",
+    tip: "TIP",
     exercises: [
-      { id: "vr_box",   name: "VR cardio boksen",    sets: 1, reps: "20 min", noweight: true },
-      { id: "plank",    name: "Plank (variaties)",    sets: 3, reps: "45 sec", noweight: true },
-      { id: "deadbug",  name: "Dead bug",             sets: 3, reps: "10 p.z.", noweight: true },
-      { id: "woodchop", name: "Band woodchop",        sets: 3, reps: "12 p.z." },
+      { id: "rdl",   name: "Romanian Deadlift",       sets: 4, reps: "10" },
+      { id: "push_up", name: "Push up",       sets: 3, reps: "12 p.z.", noweight: true },
+      { id: "barbell_row",  name: "Barbell rows",      sets: 3, reps: "15", noweight: true },
+      { id: "barbell_hp",       name: "Barbell High pull",        sets: 3, reps: "12" },
+      { id: "side_raise",     name: "Side raises",          sets: 3, reps: "12 p.z." },
+	  { id: "calf_raise",     name: "Calf raises",          sets: 3, reps: "12" },
+	  { id: "bicep_curl",     name: "Bicep curls",          sets: 3, reps: "12" },
     ]
+  },
+  {
+    id: "do", label: "Do", type: "rust", typeName: "Rust",
+    name: "Rust", time: "—",
+    tip: "Volledige rustdag. Goed eten en slapen voor herstel.",
+    exercises: []
   },
   {
     id: "vr", label: "Vr", type: "benen", typeName: "Benen & billen",
-    name: "Benen & billen", time: "~45 min",
-    tip: "Zwaarste sessie. Goblet squat en RDL zijn je kernoefeningen — bouw gewicht op.",
+    name: "Legit legs", time: "~45 min",
+    tip: "TIP",
     exercises: [
-      { id: "goblet",  name: "Goblet squat",           sets: 4, reps: "12" },
-      { id: "rdl",     name: "Romanian deadlift",       sets: 4, reps: "10" },
-      { id: "lunge",   name: "Dumbbell lunges",         sets: 3, reps: "12 p.z." },
-      { id: "bridge",  name: "Glute bridge / hip thrust",sets:3, reps: "15", noweight: true },
-      { id: "crab",    name: "Band crab walk",           sets: 3, reps: "15 p.z.", noweight: true },
+      { id: "hanging_knee",  name: "Hanging knee raises",           sets: 4, reps: "12", noweight: true},
+      { id: "deep_squat",     name: "Deep squat",       sets: 4, reps: "10" },
+      { id: "sumo_squat",   name: "Sumo squat",         sets: 3, reps: "12" },
+      { id: "split_squat",  name: "Split squats",			sets:3, reps: "15 p.z.", },
+      { id: "leg_raise",    name: "Leg raises",           sets: 3, reps: "15", noweight: true }
+	  { id: "l_sit",    name: "L sit riedeltje",           sets: 3, reps: "15", noweight: true },
     ]
   },
   {
-    id: "za", label: "Za", type: "full", typeName: "Full body",
-    name: "Full body", time: "~45 min",
-    tip: "Gebruik zaterdag om bodypump te integreren. Compound moves voor maximale efficiency.",
-    exercises: [
-      { id: "thruster",  name: "Dumbbell thruster",  sets: 4, reps: "10" },
-      { id: "renegade",  name: "Renegade row",        sets: 3, reps: "8 p.z." },
-      { id: "sumo",      name: "Sumo deadlift",       sets: 3, reps: "12" },
-      { id: "arnold",    name: "Arnold press",        sets: 3, reps: "10" },
-      { id: "bodypump",  name: "Bodypump circuit",    sets: 1, reps: "10 min", noweight: true },
+    id: "za", label: "Za", type: "rust", typeName: "Rust",
+    name: "Rust", time: "—",
+    tip: "Volledige rustdag. Eventueel een wandeling of lichte stretch.",
+    exercises: []
     ]
   },
   {
