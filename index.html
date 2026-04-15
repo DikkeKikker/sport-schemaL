@@ -662,14 +662,14 @@ const sessions = [
     name: "Muscle-up Monday", time: "~40 min",
     tip: "[TIP]",
     exercises: [
-      { id: "hanging_knee", name: "Hanging knee raises", sets: 3, reps: "10–12" },
-      { id: "australian_pull",         name: "Australian pull-up",        sets: 3, reps: "10" },
-      { id: "pull_up_ass",     name: "Pull up assisted",sets: 3, reps: "12" },
-      { id: "push_up",     name: "Push ups",        sets: 3, reps: "15" },
+      { id: "hanging_knee", name: "Hanging knee raises", sets: 3, reps: "10–12", noweight: true },
+      { id: "australian_pull",         name: "Australian pull-up",        sets: 3, reps: "10", noweight: true },
+      { id: "pull_up_ass",     name: "Pull up assisted",sets: 3, reps: "12", noweight: true },
+      { id: "push_up",     name: "Push ups",        sets: 3, reps: "15", noweight: true },
       { id: "barbell_row",      name: "Barbell rows", sets: 3, reps: "12" },
 	  { id: "tricep_ext",      name: "Triceps extentions", sets: 3, reps: "12" },
-	  { id: "dip",      name: "Dips", sets: 3, reps: "12" },
-	  { id: "mountain_climber",      name: "Mountain climbers", sets: 3, reps: "12" },
+	  { id: "dip",      name: "Dips", sets: 3, reps: "12", noweight: true },
+	  { id: "mountain_climber",      name: "Mountain climbers", sets: 3, reps: "12", noweight: true },
     ]
   },
   {
@@ -952,7 +952,26 @@ function renderContent() {
     </div>`;
 
     if (ex.noweight) {
-      html += `<div class="no-weight-note">— geen gewicht</div>`;
+  html += `<div class="no-weight-note">Bodyweight • 3 sets</div>`;
+
+  html += `<div class="sets-row">`;
+  for (let i = 0; i < ex.sets; i++) {
+    const val = exData.sets && exData.sets[i] != null ? exData.sets[i] : "";
+    html += `
+      <div class="set-block">
+        <div class="set-num">Set ${i + 1}</div>
+        <div class="set-input-wrap">
+          <input class="set-input"
+                 type="number" inputmode="numeric" min="0" step="1"
+                 placeholder="reps"
+                 value="${val}"
+                 ${!isNow ? 'readonly' : ''}
+                 id="inp_${s.id}_${ex.id}_${i}" />
+          <span class="set-unit">reps</span>
+        </div>
+      </div>`;
+  }
+  html += `</div>`;
     } else {
       html += `<div class="sets-row">`;
       for (let i = 0; i < ex.sets; i++) {
