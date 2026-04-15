@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f0f0f">
+<title>Training</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+  --bg: #ffffff;
+  --surface: #f5f5f5;
+  --surface2: #eeeeee;
+  --border: rgba(0,0,0,0.08);
+  --border2: rgba(0,0,0,0.14);
+  --text: #0f0f0f;
+  --muted: rgba(0,0,0,0.55);
+  --accent: #cd9adb;
+  --accent-dim: rgba(205,154,219,0.15);
+  --accent-text: #ffffff;
+  --push: #c77c5d;
+  --pull: #4d86c7;
+  --legs: #8b5fbf;
+  --cardio: #3fbf9f;
+  --full: #c7b84d;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+  --r: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 100vh;
+    overscroll-behavior: none;
+  }
+
+  /* Header */
+  .header {
+    padding: 52px 20px 14px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(15,15,15,0.97);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .app-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+
+  /* Week navigator */
+  .week-nav {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .week-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 16px;
+    padding: 5px 11px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+  .week-btn:active { color: var(--accent); }
+  .week-btn:disabled { opacity: 0.25; cursor: default; }
+
+  .week-label {
+    font-size: 12px;
+    color: var(--text);
+    font-family: var(--mono);
+    padding: 5px 6px;
+    white-space: nowrap;
+    min-width: 64px;
+    text-align: center;
+  }
+
+  .week-current-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-left: 4px;
+    vertical-align: middle;
+    margin-bottom: 1px;
+  }
+
+  /* Day tabs */
+  .day-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+  .day-tabs::-webkit-scrollbar { display: none; }
+
+  .day-tab {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border2);
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    font-family: var(--mono);
+    letter-spacing: 0.03em;
+    position: relative;
+  }
+
+  .day-tab.active {
+    background: var(--accent);
+    color: var(--accent-text);
+    border-color: var(--accent);
+    font-weight: 500;
+  }
+
+  .day-tab.rest { opacity: 0.4; }
+
+  .day-tab .has-data {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.7;
+  }
+  .day-tab.active .has-data { background: var(--accent-text); }
+
+  /* Content */
+  .content {
+    padding: 20px 16px 100px;
+  }
+
+  .session-header {
+    margin-bottom: 20px;
+  }
+
+  .session-name {
+    font-size: 26px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .session-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .session-badge {
+    font-size: 11px;
+    font-family: var(--mono);
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .badge-push { background: rgba(232,168,124,0.15); color: var(--push); }
+  .badge-pull { background: rgba(124,184,232,0.15); color: var(--pull); }
+  .badge-benen { background: rgba(176,124,232,0.15); color: var(--legs); }
+  .badge-cardio { background: rgba(124,232,192,0.15); color: var(--cardio); }
+  .badge-full { background: rgba(232,216,124,0.15); color: var(--full); }
+  .badge-rust { background: rgba(255,255,255,0.06); color: var(--muted); }
+
+  .session-time {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  /* Rest day */
+  .rest-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 32px 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .rest-icon { font-size: 32px; margin-bottom: 12px; opacity: 0.5; }
+
+  /* Exercise cards */
+  .ex-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    transition: border-color 0.2s;
+  }
+
+  .ex-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .ex-name-wrap { flex: 1; }
+
+  .ex-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .ex-advice {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--accent);
+    margin-top: 3px;
+    opacity: 0.85;
+  }
+
+  .ex-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .ex-scheme {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--muted);
+    background: var(--surface2);
+    padding: 3px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .ex-chart-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    font-size: 13px;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .ex-chart-btn:active { background: var(--accent-dim); color: var(--accent); }
+
+  /* Set inputs */
+  .sets-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .set-block {
+    flex: 1;
+    min-width: 60px;
+    max-width: 90px;
+  }
+
+  .set-num {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--muted);
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .set-input-wrap { position: relative; }
+
+  .set-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 16px;
+    font-family: var(--mono);
+    font-weight: 500;
+    padding: 9px 28px 9px 10px;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .set-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(200,240,110,0.05);
+  }
+
+  .set-input::placeholder { color: rgba(240,237,232,0.2); }
+
+  .set-input.has-prev::placeholder { color: rgba(200,240,110,0.35); }
+
+  .set-unit {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: var(--muted);
+    font-family: var(--mono);
+    pointer-events: none;
+  }
+
+  .no-weight-note {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: var(--mono);
+    padding: 6px 0 2px;
+  }
+
+  /* Note */
+  .note-wrap { margin-top: 10px; }
+
+  .note-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--font);
+    font-size: 13px;
+    padding: 8px 0 2px;
+    resize: none;
+    line-height: 1.4;
+    min-height: 28px;
+  }
+  .note-input:focus { outline: none; color: var(--text); }
+  .note-input::placeholder { color: rgba(240,237,232,0.18); }
+
+  /* Save bar */
+  .save-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background: rgba(15,15,15,0.97);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    z-index: 200;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .save-btn {
+    flex: 1;
+    padding: 13px;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    -webkit-appearance: none;
+  }
+  .save-btn:active { opacity: 0.75; }
+  .save-btn.saved {
+    background: var(--surface2);
+    color: var(--accent);
+    border: 1px solid rgba(200,240,110,0.3);
+  }
+
+  .clear-btn {
+    padding: 13px 16px;
+    background: var(--surface2);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+  .clear-btn:active { opacity: 0.6; }
+
+  /* Tip */
+  .tip-card {
+    margin-top: 12px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(200,240,110,0.15);
+    border-radius: var(--r);
+    padding: 12px 14px;
+    font-size: 13px;
+    color: rgba(200,240,110,0.85);
+    line-height: 1.5;
+  }
+
+  /* Divider */
+  .section-divider {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 18px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* === CHART MODAL === */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 500;
+    backdrop-filter: blur(4px);
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 18px 18px 0 0;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px 20px calc(20px + env(safe-area-inset-bottom));
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+
+  .modal-handle {
+    width: 36px;
+    height: 4px;
+    background: var(--border2);
+    border-radius: 2px;
+    margin: 0 auto 18px;
+  }
+
+  .modal-title {
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .modal-sub {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Chart */
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    margin-bottom: 12px;
+  }
+
+  .chart-canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  .chart-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: var(--mono);
+  }
+
+  .chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-top: 8px;
+  }
+
+  .legend-item {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .legend-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* Stat row */
+  .stat-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .stat-box {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+
+  .stat-val {
+    font-size: 18px;
+    font-family: var(--mono);
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .stat-val.pos { color: var(--accent); }
+  .stat-val.neg { color: #e87c7c; }
+
+  /* Readonly mode banner */
+  .readonly-banner {
+    background: rgba(232,168,124,0.1);
+    border: 1px solid rgba(232,168,124,0.2);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--push);
+    margin-bottom: 14px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <span class="app-title">Training</span>
+    <div class="week-nav">
+      <button class="week-btn" id="prev-week-btn" onclick="changeWeek(-1)">‹</button>
+      <span class="week-label" id="week-label">—</span>
+      <button class="week-btn" id="next-week-btn" onclick="changeWeek(1)">›</button>
+    </div>
+  </div>
+  <div class="day-tabs" id="day-tabs"></div>
+</div>
+
+<div class="content" id="content"></div>
+
+<div class="save-bar" id="save-bar">
+  <button class="save-btn" id="save-btn" onclick="saveSession()">Opslaan</button>
+  <button class="clear-btn" onclick="clearSession()">Wis</button>
+</div>
+
+<!-- Chart Modal -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" id="modal-content">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-title" id="modal-title">—</div>
+    <div class="modal-sub" id="modal-sub">Gewicht over tijd</div>
+    <div class="chart-wrap">
+      <canvas class="chart-canvas" id="chart-canvas"></canvas>
+      <div class="chart-empty" id="chart-empty" style="display:none">Nog geen data beschikbaar.<br>Sla een paar sessies op om progressie te zien.</div>
+    </div>
+    <div class="chart-legend" id="chart-legend"></div>
+    <div class="stat-row" id="stat-row"></div>
+  </div>
+</div>
+
+<script>
+// =====================
+// SESSIONS CONFIG
+// =====================
+const sessions = [
+  {
+    id: "ma", label: "Ma", type: "push", typeName: "Push",
+    name: "Push", time: "~40 min",
+    tip: "Borst, schouders, triceps. Zwaar genoeg dat de laatste 2 reps uitdagend zijn.",
+    exercises: [
+      { id: "chest_press", name: "Dumbbell chest press", sets: 4, reps: "10–12" },
+      { id: "ohp",         name: "Overhead press",        sets: 3, reps: "10" },
+      { id: "incline",     name: "Incline dumbbell press",sets: 3, reps: "12" },
+      { id: "lateral",     name: "Lateral raises",        sets: 3, reps: "15" },
+      { id: "tricep",      name: "Triceps kickbacks / overhead", sets: 3, reps: "12" },
+    ]
+  },
+  {
+    id: "di", label: "Di", type: "pull", typeName: "Pull",
+    name: "Pull", time: "~40 min",
+    tip: "Rug, biceps, achterste schouder. Focus op mind-muscle connection in de rug.",
+    exercises: [
+      { id: "bent_row",   name: "Bent-over row",       sets: 4, reps: "10" },
+      { id: "single_row", name: "Single-arm row",       sets: 3, reps: "12 p.z." },
+      { id: "band_pull",  name: "Band pull-apart",      sets: 3, reps: "15", noweight: true },
+      { id: "curl",       name: "Dumbbell curl",        sets: 3, reps: "12" },
+      { id: "hammer",     name: "Hammer curl",          sets: 3, reps: "12" },
+    ]
+  },
+  {
+    id: "wo", label: "Wo", type: "rust", typeName: "Rust",
+    name: "Rust", time: "—",
+    tip: "Volledige rustdag. Goed eten en slapen voor herstel.",
+    exercises: []
+  },
+  {
+    id: "do", label: "Do", type: "cardio", typeName: "Cardio + core",
+    name: "Cardio + core", time: "~35 min",
+    tip: "Actieve rustdag tussen de krachtsessies. Licht zweten, niet uitputten.",
+    exercises: [
+      { id: "vr_box",   name: "VR cardio boksen",    sets: 1, reps: "20 min", noweight: true },
+      { id: "plank",    name: "Plank (variaties)",    sets: 3, reps: "45 sec", noweight: true },
+      { id: "deadbug",  name: "Dead bug",             sets: 3, reps: "10 p.z.", noweight: true },
+      { id: "woodchop", name: "Band woodchop",        sets: 3, reps: "12 p.z." },
+    ]
+  },
+  {
+    id: "vr", label: "Vr", type: "benen", typeName: "Benen & billen",
+    name: "Benen & billen", time: "~45 min",
+    tip: "Zwaarste sessie. Goblet squat en RDL zijn je kernoefeningen — bouw gewicht op.",
+    exercises: [
+      { id: "goblet",  name: "Goblet squat",           sets: 4, reps: "12" },
+      { id: "rdl",     name: "Romanian deadlift",       sets: 4, reps: "10" },
+      { id: "lunge",   name: "Dumbbell lunges",         sets: 3, reps: "12 p.z." },
+      { id: "bridge",  name: "Glute bridge / hip thrust",sets:3, reps: "15", noweight: true },
+      { id: "crab",    name: "Band crab walk",           sets: 3, reps: "15 p.z.", noweight: true },
+    ]
+  },
+  {
+    id: "za", label: "Za", type: "full", typeName: "Full body",
+    name: "Full body", time: "~45 min",
+    tip: "Gebruik zaterdag om bodypump te integreren. Compound moves voor maximale efficiency.",
+    exercises: [
+      { id: "thruster",  name: "Dumbbell thruster",  sets: 4, reps: "10" },
+      { id: "renegade",  name: "Renegade row",        sets: 3, reps: "8 p.z." },
+      { id: "sumo",      name: "Sumo deadlift",       sets: 3, reps: "12" },
+      { id: "arnold",    name: "Arnold press",        sets: 3, reps: "10" },
+      { id: "bodypump",  name: "Bodypump circuit",    sets: 1, reps: "10 min", noweight: true },
+    ]
+  },
+  {
+    id: "zo", label: "Zo", type: "rust", typeName: "Rust",
+    name: "Rust", time: "—",
+    tip: "Volledige rustdag. Eventueel een wandeling of lichte stretch.",
+    exercises: []
+  }
+];
+
+// =====================
+// WEEK / STORAGE
+// =====================
+// Week offset from "current" ISO week. 0 = this week, -1 = last week, etc.
+let weekOffset = 0;
+let activeDay = 0;
+
+function isoWeekNumber(date) {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+}
+
+function currentWeekKey() {
+  const now = new Date();
+  // Shift by weekOffset
+  const shifted = new Date(now);
+  shifted.setDate(shifted.getDate() + weekOffset * 7);
+  const y = shifted.getFullYear();
+  const w = isoWeekNumber(shifted);
+  return `${y}-W${String(w).padStart(2,'0')}`;
+}
+
+function weekKeyToLabel(wk) {
+  // wk = "2025-W04"
+  const [y, wPart] = wk.split('-W');
+  return `W${wPart} '${String(y).slice(2)}`;
+}
+
+function isCurrentWeek() { return weekOffset === 0; }
+
+// Storage: all data in one object under key "trainingData"
+// Structure: { "2025-W04": { "ma": { "chest_press": { sets: ["10","10","—","—"], note: "" }, ... }, ... }, ... }
+function loadAllData() {
+  try {
+    const raw = localStorage.getItem('trainingData');
+    return raw ? JSON.parse(raw) : {};
+  } catch(e) { return {}; }
+}
+
+function saveAllData(data) {
+  try { localStorage.setItem('trainingData', JSON.stringify(data)); } catch(e) {}
+}
+
+function getWeekData(wk) {
+  const all = loadAllData();
+  return all[wk] || {};
+}
+
+function getDayData(wk, dayId) {
+  return getWeekData(wk)[dayId] || {};
+}
+
+function getExData(wk, dayId, exId) {
+  return getDayData(wk, dayId)[exId] || { sets: [], note: "" };
+}
+
+function setExData(wk, dayId, exId, data) {
+  const all = loadAllData();
+  if (!all[wk]) all[wk] = {};
+  if (!all[wk][dayId]) all[wk][dayId] = {};
+  all[wk][dayId][exId] = data;
+  saveAllData(all);
+}
+
+// Get last N week keys before current
+function prevWeekKey(n) {
+  const now = new Date();
+  const shifted = new Date(now);
+  shifted.setDate(shifted.getDate() + (weekOffset - n) * 7);
+  const y = shifted.getFullYear();
+  const w = isoWeekNumber(shifted);
+  return `${y}-W${String(w).padStart(2,'0')}`;
+}
+
+// Get average weight used for an exercise across sets in a specific week
+function getAvgWeight(wk, dayId, exId) {
+  const d = getExData(wk, dayId, exId);
+  const vals = (d.sets || []).map(v => parseFloat(v)).filter(v => !isNaN(v) && v > 0);
+  if (!vals.length) return null;
+  return vals.reduce((a,b) => a+b, 0) / vals.length;
+}
+
+// Build advice string from last 3 weeks
+function getAdvice(dayId, exId) {
+  const weeks = [];
+  for (let n = 1; n <= 3; n++) {
+    const wk = prevWeekKey(n);
+    const avg = getAvgWeight(wk, dayId, exId);
+    if (avg !== null) weeks.push({ wk, avg });
+  }
+  if (!weeks.length) return null;
+
+  const last = weeks[0];
+  const label = weekKeyToLabel(last.wk);
+
+  if (weeks.length >= 2) {
+    const trend = last.avg - weeks[1].avg;
+    const trendStr = trend > 0 ? `+${trend.toFixed(1)}` : trend.toFixed(1);
+    return `${label}: ${last.avg.toFixed(1)} kg  (${trendStr} vs week daarvoor)`;
+  }
+  return `${label}: ${last.avg.toFixed(1)} kg`;
+}
+
+// Placeholder for previous week's set values
+function getPrevSetValues(dayId, exId, numSets) {
+  for (let n = 1; n <= 3; n++) {
+    const wk = prevWeekKey(n);
+    const d = getExData(wk, dayId, exId);
+    const vals = d.sets || [];
+    if (vals.some(v => parseFloat(v) > 0)) {
+      // Pad or trim to numSets
+      const out = [];
+      for (let i = 0; i < numSets; i++) out.push(vals[i] || "");
+      return out;
+    }
+  }
+  return null;
+}
+
+// =====================
+// RENDER
+// =====================
+function changeWeek(dir) {
+  weekOffset += dir;
+  renderWeekLabel();
+  renderTabs();
+  renderContent();
+  document.getElementById("save-btn").textContent = "Opslaan";
+  document.getElementById("save-btn").classList.remove("saved");
+}
+
+function renderWeekLabel() {
+  const wk = currentWeekKey();
+  const label = weekKeyToLabel(wk);
+  const isNow = isCurrentWeek();
+  document.getElementById("week-label").innerHTML =
+    label + (isNow ? '<span class="week-current-dot"></span>' : '');
+  document.getElementById("next-week-btn").disabled = isNow;
+}
+
+function dayHasData(dayId) {
+  const wk = currentWeekKey();
+  const dd = getDayData(wk, dayId);
+  return Object.values(dd).some(ex => (ex.sets||[]).some(v => parseFloat(v) > 0));
+}
+
+function renderTabs() {
+  const container = document.getElementById("day-tabs");
+  container.innerHTML = sessions.map((s, i) => {
+    const hasData = s.type !== 'rust' && dayHasData(s.id);
+    return `
+      <div class="day-tab ${i === activeDay ? 'active' : ''} ${s.type === 'rust' ? 'rest' : ''}"
+           onclick="switchDay(${i})">
+        ${s.label}
+        ${hasData ? '<span class="has-data"></span>' : ''}
+      </div>`;
+  }).join("");
+}
+
+function renderContent() {
+  const s = sessions[activeDay];
+  const wk = currentWeekKey();
+  const isNow = isCurrentWeek();
+  const content = document.getElementById("content");
+
+  // Show/hide save bar
+  document.getElementById("save-bar").style.display = (s.type === 'rust') ? 'none' : 'flex';
+
+  if (s.type === "rust") {
+    content.innerHTML = `
+      <div class="session-header">
+        <div class="session-name">${s.name}</div>
+        <div class="session-meta">
+          <span class="session-badge badge-rust">${s.typeName}</span>
+        </div>
+      </div>
+      <div class="rest-card">
+        <div class="rest-icon">○</div>
+        <div>${s.tip}</div>
+      </div>`;
+    return;
+  }
+
+  let html = `
+    <div class="session-header">
+      <div class="session-name">${s.name}</div>
+      <div class="session-meta">
+        <span class="session-badge badge-${s.type}">${s.typeName}</span>
+        <span class="session-time">${s.time}</span>
+      </div>
+    </div>`;
+
+  if (!isNow) {
+    html += `<div class="readonly-banner">📅 Je bekijkt week ${weekKeyToLabel(wk)} — alleen lezen</div>`;
+  }
+
+  html += `<div class="section-divider">Straight sets — alle sets per oefening</div>`;
+
+  for (const ex of s.exercises) {
+    const exData = getExData(wk, s.id, ex.id);
+    const advice = ex.noweight ? null : getAdvice(s.id, ex.id);
+    const prevVals = ex.noweight ? null : getPrevSetValues(s.id, ex.id, ex.sets);
+
+    html += `<div class="ex-card" id="excard_${ex.id}">`;
+    html += `<div class="ex-top" onclick="${ex.noweight ? '' : `openChart('${s.id}','${ex.id}','${ex.name.replace(/'/g,"\\'")}',${ex.sets})`}">
+      <div class="ex-name-wrap">
+        <div class="ex-name">${ex.name}</div>
+        ${advice ? `<div class="ex-advice">↑ Vorige keer: ${advice}</div>` : ''}
+      </div>
+      <div class="ex-right">
+        <div class="ex-scheme">${ex.sets}×${ex.reps}</div>
+        ${!ex.noweight ? `<div class="ex-chart-btn" title="Bekijk progressie">↗</div>` : ''}
+      </div>
+    </div>`;
+
+    if (ex.noweight) {
+      html += `<div class="no-weight-note">— geen gewicht</div>`;
+    } else {
+      html += `<div class="sets-row">`;
+      for (let i = 0; i < ex.sets; i++) {
+        const val = exData.sets && exData.sets[i] != null ? exData.sets[i] : "";
+        const prevVal = prevVals ? prevVals[i] : "";
+        const hasPrev = prevVal && parseFloat(prevVal) > 0;
+        const placeholder = hasPrev ? prevVal : "—";
+        html += `
+          <div class="set-block">
+            <div class="set-num">Set ${i + 1}</div>
+            <div class="set-input-wrap">
+              <input class="set-input ${hasPrev ? 'has-prev' : ''}"
+                     type="number" inputmode="decimal" min="0" step="0.5"
+                     placeholder="${placeholder}" value="${val}"
+                     ${!isNow ? 'readonly' : ''}
+                     id="inp_${s.id}_${ex.id}_${i}" />
+              <span class="set-unit">kg</span>
+            </div>
+          </div>`;
+      }
+      html += `</div>`;
+    }
+
+    const noteVal = exData.note || "";
+    html += `<div class="note-wrap">
+      <textarea class="note-input" rows="1" placeholder="Notitie..."
+                id="note_${s.id}_${ex.id}"
+                ${!isNow ? 'readonly' : ''}
+                oninput="autoResize(this)">${noteVal}</textarea>
+    </div>`;
+    html += `</div>`;
+  }
+
+  html += `<div class="tip-card">${s.tip}</div>`;
+  content.innerHTML = html;
+  document.querySelectorAll('.note-input').forEach(autoResize);
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+function switchDay(i) {
+  activeDay = i;
+  renderTabs();
+  renderContent();
+  const btn = document.getElementById("save-btn");
+  if (btn) { btn.textContent = "Opslaan"; btn.classList.remove("saved"); }
+  window.scrollTo(0, 0);
+}
+
+function saveSession() {
+  if (!isCurrentWeek()) return;
+  const s = sessions[activeDay];
+  if (s.type === "rust") return;
+  const wk = currentWeekKey();
+
+  for (const ex of s.exercises) {
+    const sets = [];
+    if (!ex.noweight) {
+      for (let i = 0; i < ex.sets; i++) {
+        const el = document.getElementById(`inp_${s.id}_${ex.id}_${i}`);
+        sets.push(el ? el.value : "");
+      }
+    }
+    const nel = document.getElementById(`note_${s.id}_${ex.id}`);
+    const note = nel ? nel.value : "";
+    setExData(wk, s.id, ex.id, { sets, note });
+  }
+
+  renderTabs(); // update dots
+
+  const btn = document.getElementById("save-btn");
+  btn.textContent = "Opgeslagen ✓";
+  btn.classList.add("saved");
+  setTimeout(() => {
+    btn.textContent = "Opslaan";
+    btn.classList.remove("saved");
+  }, 2200);
+}
+
+function clearSession() {
+  if (!isCurrentWeek()) return;
+  if (!confirm("Gewichten van deze sessie wissen?")) return;
+  const s = sessions[activeDay];
+  const wk = currentWeekKey();
+  const all = loadAllData();
+  if (all[wk] && all[wk][s.id]) {
+    delete all[wk][s.id];
+    saveAllData(all);
+  }
+  renderContent();
+  renderTabs();
+}
+
+// =====================
+// CHART MODAL
+// =====================
+function openChart(dayId, exId, exName, numSets) {
+  const all = loadAllData();
+
+  // Collect all weeks that have data for this exercise, sorted
+  const dataPoints = [];
+  for (const wk of Object.keys(all).sort()) {
+    const ex = (all[wk][dayId] || {})[exId];
+    if (!ex) continue;
+    const vals = (ex.sets || []).map(v => parseFloat(v)).filter(v => !isNaN(v) && v > 0);
+    if (!vals.length) continue;
+    const avg = vals.reduce((a,b) => a+b, 0) / vals.length;
+    const max = Math.max(...vals);
+    dataPoints.push({ wk, avg: parseFloat(avg.toFixed(2)), max: parseFloat(max.toFixed(2)), vals });
+  }
+
+  document.getElementById("modal-title").textContent = exName;
+  document.getElementById("modal-sub").textContent = `Gemiddeld gewicht per week (${numSets} sets)`;
+
+  const canvas = document.getElementById("chart-canvas");
+  const empty = document.getElementById("chart-empty");
+  const legendEl = document.getElementById("chart-legend");
+  const statRow = document.getElementById("stat-row");
+
+  if (dataPoints.length < 1) {
+    canvas.style.display = "none";
+    empty.style.display = "block";
+    legendEl.innerHTML = "";
+    statRow.innerHTML = "";
+  } else {
+    canvas.style.display = "block";
+    empty.style.display = "none";
+    drawChart(canvas, dataPoints);
+
+    // Legend
+    legendEl.innerHTML = dataPoints.map(p =>
+      `<div class="legend-item"><div class="legend-dot"></div>${weekKeyToLabel(p.wk)}: ${p.avg} kg gem / ${p.max} kg max</div>`
+    ).join("");
+
+    // Stats
+    let statsHtml = `
+      <div class="stat-box">
+        <div class="stat-label">Laatste sessie</div>
+        <div class="stat-val">${dataPoints[dataPoints.length-1].avg} kg</div>
+      </div>`;
+
+    if (dataPoints.length >= 2) {
+      const diff = dataPoints[dataPoints.length-1].avg - dataPoints[dataPoints.length-2].avg;
+      const diffStr = (diff >= 0 ? "+" : "") + diff.toFixed(1);
+      const cls = diff > 0 ? "pos" : diff < 0 ? "neg" : "";
+      statsHtml += `
+        <div class="stat-box">
+          <div class="stat-label">Trend</div>
+          <div class="stat-val ${cls}">${diffStr} kg</div>
+        </div>`;
+    }
+
+    if (dataPoints.length >= 1) {
+      const allVals = dataPoints.map(p => p.max);
+      statsHtml += `
+        <div class="stat-box">
+          <div class="stat-label">Beste set</div>
+          <div class="stat-val">${Math.max(...allVals)} kg</div>
+        </div>`;
+    }
+
+    statRow.innerHTML = statsHtml;
+  }
+
+  document.getElementById("modal").classList.add("open");
+}
+
+function drawChart(canvas, points) {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.parentElement.getBoundingClientRect();
+  const W = rect.width;
+  const H = 180;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + "px";
+  canvas.style.height = H + "px";
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+
+  const pad = { top: 16, right: 20, bottom: 32, left: 40 };
+  const cw = W - pad.left - pad.right;
+  const ch = H - pad.top - pad.bottom;
+
+  const vals = points.map(p => p.avg);
+  const minV = Math.max(0, Math.min(...vals) - 2);
+  const maxV = Math.max(...vals) + 2;
+  const range = maxV - minV || 1;
+
+  function px(i) { return pad.left + (i / Math.max(points.length - 1, 1)) * cw; }
+  function py(v) { return pad.top + ch - ((v - minV) / range) * ch; }
+
+  // Grid lines
+  ctx.strokeStyle = "rgba(255,255,255,0.05)";
+  ctx.lineWidth = 1;
+  for (let g = 0; g <= 4; g++) {
+    const y = pad.top + (g / 4) * ch;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + cw, y); ctx.stroke();
+    const label = (maxV - (g / 4) * range).toFixed(1);
+    ctx.fillStyle = "rgba(240,237,232,0.35)";
+    ctx.font = `9px 'DM Mono', monospace`;
+    ctx.textAlign = "right";
+    ctx.fillText(label, pad.left - 5, y + 3);
+  }
+
+  // X axis labels
+  ctx.fillStyle = "rgba(240,237,232,0.35)";
+  ctx.font = `9px 'DM Mono', monospace`;
+  ctx.textAlign = "center";
+  points.forEach((p, i) => {
+    ctx.fillText(weekKeyToLabel(p.wk), px(i), H - 6);
+  });
+
+  if (points.length === 1) {
+    // Single dot
+    ctx.fillStyle = "#c8f06e";
+    ctx.beginPath();
+    ctx.arc(px(0), py(vals[0]), 5, 0, Math.PI * 2);
+    ctx.fill();
+    return;
+  }
+
+  // Fill gradient
+  const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + ch);
+  grad.addColorStop(0, "rgba(200,240,110,0.22)");
+  grad.addColorStop(1, "rgba(200,240,110,0)");
+  ctx.beginPath();
+  ctx.moveTo(px(0), py(vals[0]));
+  for (let i = 1; i < points.length; i++) ctx.lineTo(px(i), py(vals[i]));
+  ctx.lineTo(px(points.length - 1), pad.top + ch);
+  ctx.lineTo(px(0), pad.top + ch);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  ctx.strokeStyle = "#c8f06e";
+  ctx.lineWidth = 2;
+  ctx.lineJoin = "round";
+  ctx.moveTo(px(0), py(vals[0]));
+  for (let i = 1; i < points.length; i++) ctx.lineTo(px(i), py(vals[i]));
+  ctx.stroke();
+
+  // Dots
+  vals.forEach((v, i) => {
+    ctx.beginPath();
+    ctx.fillStyle = "#c8f06e";
+    ctx.arc(px(i), py(v), 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#1a1a1a";
+    ctx.arc(px(i), py(v), 2, 0, Math.PI * 2);
+    ctx.fill();
+  });
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById("modal")) {
+    document.getElementById("modal").classList.remove("open");
+  }
+}
+
+// =====================
+// INIT
+// =====================
+function init() {
+  // Auto-select today
+  const dayMap = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 0: 6 };
+  activeDay = dayMap[new Date().getDay()] ?? 0;
+  renderWeekLabel();
+  renderTabs();
+  renderContent();
+}
+
+init();
+</script>
+</body>
+</html>
