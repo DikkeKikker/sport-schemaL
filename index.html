@@ -662,134 +662,93 @@ const sessions = [
     name: "Muscle-up Monday", time: "~40 min",
     tip: "[TIP]",
     exercises: [
-      { id: "hanging_knee", name: "Hanging knee raises", sets: 3, reps: "10–12", noweight: true },
-      { id: "australian_pull",         name: "Australian pull-up",        sets: 3, reps: "10", noweight: true },
-      { id: "pull_up_ass",     name: "Pull up assisted",sets: 3, reps: "12", noweight: true },
-      { id: "push_up",     name: "Push ups",        sets: 3, reps: "15", noweight: true },
-      { id: "barbell_row",      name: "Barbell rows", sets: 3, reps: "12" },
-	  { id: "tricep_ext",      name: "Triceps extentions", sets: 3, reps: "12" },
-	  { id: "dip",      name: "Dips", sets: 3, reps: "12", noweight: true },
-	  { id: "mountain_climber",      name: "Mountain climbers", sets: 3, reps: "12", noweight: true },
+      { id: "hanging_knee", name: "Hanging knee raises", sets: 3, reps: "10–12", trackType: "reps" },
+      { id: "australian_pull", name: "Australian pull-up", sets: 3, reps: "10", trackType: "reps" },
+      { id: "pull_up_ass", name: "Pull up assisted", sets: 3, reps: "12", trackType: "weight" },
+      { id: "push_up", name: "Push ups", sets: 3, reps: "15", trackType: "reps" },
+      { id: "barbell_row", name: "Barbell rows", sets: 3, reps: "12", trackType: "weight" },
+      { id: "tricep_ext", name: "Triceps extensions", sets: 3, reps: "12", trackType: "weight" },
+      { id: "dip", name: "Dips", sets: 3, reps: "12", trackType: "reps" },
+      { id: "mountain_climber", name: "Mountain climbers", sets: 3, reps: "12", trackType: "reps" },
     ]
   },
   {
     id: "di", label: "Di", type: "pull", typeName: "Pull",
     name: "Pull", time: "~40 min",
-    tip: "Rug, biceps, achterste schouder. Focus op mind-muscle connection in de rug.",
+    tip: "Rug, biceps, achterste schouder.",
     exercises: [
-      { id: "bent_row",   name: "Bent-over row",       sets: 4, reps: "10" },
-      { id: "single_row", name: "Single-arm row",       sets: 3, reps: "12 p.z." },
-      { id: "band_pull",  name: "Band pull-apart",      sets: 3, reps: "15", noweight: true },
-      { id: "curl",       name: "Dumbbell curl",        sets: 3, reps: "12" },
-      { id: "hammer",     name: "Hammer curl",          sets: 3, reps: "12" },
+      { id: "bent_row", name: "Bent-over row", sets: 4, reps: "10", trackType: "weight" },
+      { id: "single_row", name: "Single-arm row", sets: 3, reps: "12 p.z.", trackType: "weight" },
+      { id: "band_pull", name: "Band pull-apart", sets: 3, reps: "15", trackType: "reps" },
+      { id: "curl", name: "Dumbbell curl", sets: 3, reps: "12", trackType: "weight" },
+      { id: "hammer", name: "Hammer curl", sets: 3, reps: "12", trackType: "weight" },
     ]
   },
   {
     id: "wo", label: "Wo", type: "rust", typeName: "Rust",
     name: "Rust", time: "—",
-    tip: "Volledige rustdag. Goed eten en slapen voor herstel.",
+    tip: "Volledige rustdag.",
     exercises: []
   },
   {
     id: "do", label: "Do", type: "cardio", typeName: "Cardio + core",
     name: "Cardio + core", time: "~35 min",
-    tip: "Actieve rustdag tussen de krachtsessies. Licht zweten, niet uitputten.",
+    tip: "Actieve rust.",
     exercises: [
-      { id: "vr_box",   name: "VR cardio boksen",    sets: 1, reps: "20 min", noweight: true },
-      { id: "plank",    name: "Plank (variaties)",    sets: 3, reps: "45 sec", noweight: true },
-      { id: "deadbug",  name: "Dead bug",             sets: 3, reps: "10 p.z.", noweight: true },
-      { id: "woodchop", name: "Band woodchop",        sets: 3, reps: "12 p.z." },
+      { id: "vr_box", name: "VR cardio boksen", sets: 1, reps: "20 min", trackType: "reps" },
+      { id: "plank", name: "Plank", sets: 3, reps: "45 sec", trackType: "reps" },
+      { id: "deadbug", name: "Dead bug", sets: 3, reps: "10 p.z.", trackType: "reps" },
+      { id: "woodchop", name: "Band woodchop", sets: 3, reps: "12 p.z.", trackType: "weight" },
     ]
   },
   {
     id: "vr", label: "Vr", type: "benen", typeName: "Benen & billen",
     name: "Benen & billen", time: "~45 min",
-    tip: "Zwaarste sessie. Goblet squat en RDL zijn je kernoefeningen — bouw gewicht op.",
+    tip: "Zwaarste sessie.",
     exercises: [
-      { id: "goblet",  name: "Goblet squat",           sets: 4, reps: "12" },
-      { id: "rdl",     name: "Romanian deadlift",       sets: 4, reps: "10" },
-      { id: "lunge",   name: "Dumbbell lunges",         sets: 3, reps: "12 p.z." },
-      { id: "bridge",  name: "Glute bridge / hip thrust",sets:3, reps: "15", noweight: true },
-      { id: "crab",    name: "Band crab walk",           sets: 3, reps: "15 p.z.", noweight: true },
+      { id: "goblet", name: "Goblet squat", sets: 4, reps: "12", trackType: "weight" },
+      { id: "rdl", name: "Romanian deadlift", sets: 4, reps: "10", trackType: "weight" },
+      { id: "lunge", name: "Dumbbell lunges", sets: 3, reps: "12 p.z.", trackType: "weight" },
+      { id: "bridge", name: "Glute bridge", sets: 3, reps: "15", trackType: "reps" },
+      { id: "crab", name: "Band crab walk", sets: 3, reps: "15 p.z.", trackType: "reps" },
     ]
   },
   {
     id: "za", label: "Za", type: "full", typeName: "Full body",
     name: "Full body", time: "~45 min",
-    tip: "Gebruik zaterdag om bodypump te integreren. Compound moves voor maximale efficiency.",
+    tip: "Compound focus.",
     exercises: [
-      { id: "thruster",  name: "Dumbbell thruster",  sets: 4, reps: "10" },
-      { id: "renegade",  name: "Renegade row",        sets: 3, reps: "8 p.z." },
-      { id: "sumo",      name: "Sumo deadlift",       sets: 3, reps: "12" },
-      { id: "arnold",    name: "Arnold press",        sets: 3, reps: "10" },
-      { id: "bodypump",  name: "Bodypump circuit",    sets: 1, reps: "10 min", noweight: true },
+      { id: "thruster", name: "Dumbbell thruster", sets: 4, reps: "10", trackType: "weight" },
+      { id: "renegade", name: "Renegade row", sets: 3, reps: "8 p.z.", trackType: "weight" },
+      { id: "sumo", name: "Sumo deadlift", sets: 3, reps: "12", trackType: "weight" },
+      { id: "arnold", name: "Arnold press", sets: 3, reps: "10", trackType: "weight" },
+      { id: "bodypump", name: "Bodypump circuit", sets: 1, reps: "10 min", trackType: "reps" },
     ]
   },
   {
     id: "zo", label: "Zo", type: "rust", typeName: "Rust",
     name: "Rust", time: "—",
-    tip: "Volledige rustdag. Eventueel een wandeling of lichte stretch.",
+    tip: "Herstel.",
     exercises: []
   }
 ];
 
 // =====================
-// WEEK / STORAGE
+// STATE
 // =====================
-// Week offset from "current" ISO week. 0 = this week, -1 = last week, etc.
 let weekOffset = 0;
 let activeDay = 0;
 
-function isoWeekNumber(date) {
-  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-  const dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-}
-
-function currentWeekKey() {
-  const now = new Date();
-  // Shift by weekOffset
-  const shifted = new Date(now);
-  shifted.setDate(shifted.getDate() + weekOffset * 7);
-  const y = shifted.getFullYear();
-  const w = isoWeekNumber(shifted);
-  return `${y}-W${String(w).padStart(2,'0')}`;
-}
-
-function weekKeyToLabel(wk) {
-  // wk = "2025-W04"
-  const [y, wPart] = wk.split('-W');
-  return `W${wPart} '${String(y).slice(2)}`;
-}
-
-function isCurrentWeek() { return weekOffset === 0; }
-
-// Storage: all data in one object under key "trainingData"
-// Structure: { "2025-W04": { "ma": { "chest_press": { sets: ["10","10","—","—"], note: "" }, ... }, ... }, ... }
+// =====================
+// STORAGE HELPERS
+// =====================
 function loadAllData() {
-  try {
-    const raw = localStorage.getItem('trainingData');
-    return raw ? JSON.parse(raw) : {};
-  } catch(e) { return {}; }
+  try { return JSON.parse(localStorage.getItem('trainingData')) || {}; }
+  catch { return {}; }
 }
 
 function saveAllData(data) {
-  try { localStorage.setItem('trainingData', JSON.stringify(data)); } catch(e) {}
-}
-
-function getWeekData(wk) {
-  const all = loadAllData();
-  return all[wk] || {};
-}
-
-function getDayData(wk, dayId) {
-  return getWeekData(wk)[dayId] || {};
-}
-
-function getExData(wk, dayId, exId) {
-  return getDayData(wk, dayId)[exId] || { sets: [], note: "" };
+  localStorage.setItem('trainingData', JSON.stringify(data));
 }
 
 function setExData(wk, dayId, exId, data) {
@@ -800,451 +759,134 @@ function setExData(wk, dayId, exId, data) {
   saveAllData(all);
 }
 
-// Get last N week keys before current
-function prevWeekKey(n) {
-  const now = new Date();
-  const shifted = new Date(now);
-  shifted.setDate(shifted.getDate() + (weekOffset - n) * 7);
-  const y = shifted.getFullYear();
-  const w = isoWeekNumber(shifted);
-  return `${y}-W${String(w).padStart(2,'0')}`;
+function getExData(wk, dayId, exId) {
+  return (loadAllData()[wk]?.[dayId]?.[exId]) || { sets: [], note: "" };
 }
 
-// Get average weight used for an exercise across sets in a specific week
-function getAvgWeight(wk, dayId, exId) {
-  const d = getExData(wk, dayId, exId);
-  const vals = (d.sets || []).map(v => parseFloat(v)).filter(v => !isNaN(v) && v > 0);
-  if (!vals.length) return null;
-  return vals.reduce((a,b) => a+b, 0) / vals.length;
+// =====================
+// WEEK HELPERS
+// =====================
+function isoWeekNumber(date) {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
 }
 
-// Build advice string from last 3 weeks
-function getAdvice(dayId, exId) {
-  const weeks = [];
-  for (let n = 1; n <= 3; n++) {
-    const wk = prevWeekKey(n);
-    const avg = getAvgWeight(wk, dayId, exId);
-    if (avg !== null) weeks.push({ wk, avg });
-  }
-  if (!weeks.length) return null;
-
-  const last = weeks[0];
-  const label = weekKeyToLabel(last.wk);
-
-  if (weeks.length >= 2) {
-    const trend = last.avg - weeks[1].avg;
-    const trendStr = trend > 0 ? `+${trend.toFixed(1)}` : trend.toFixed(1);
-    return `${label}: ${last.avg.toFixed(1)} kg  (${trendStr} vs week daarvoor)`;
-  }
-  return `${label}: ${last.avg.toFixed(1)} kg`;
+function currentWeekKey() {
+  const d = new Date();
+  d.setDate(d.getDate() + weekOffset * 7);
+  return `${d.getFullYear()}-W${String(isoWeekNumber(d)).padStart(2,'0')}`;
 }
 
-// Placeholder for previous week's set values
-function getPrevSetValues(dayId, exId, numSets) {
-  for (let n = 1; n <= 3; n++) {
-    const wk = prevWeekKey(n);
-    const d = getExData(wk, dayId, exId);
-    const vals = d.sets || [];
-    if (vals.some(v => parseFloat(v) > 0)) {
-      // Pad or trim to numSets
-      const out = [];
-      for (let i = 0; i < numSets; i++) out.push(vals[i] || "");
-      return out;
-    }
-  }
-  return null;
+function weekKeyToLabel(wk) {
+  const [y,w] = wk.split('-W');
+  return `W${w} '${y.slice(2)}`;
 }
+
+const isCurrentWeek = () => weekOffset === 0;
 
 // =====================
 // RENDER
 // =====================
-function changeWeek(dir) {
-  weekOffset += dir;
-  renderWeekLabel();
-  renderTabs();
-  renderContent();
-  document.getElementById("save-btn").textContent = "Opslaan";
-  document.getElementById("save-btn").classList.remove("saved");
-}
-
-function renderWeekLabel() {
-  const wk = currentWeekKey();
-  const label = weekKeyToLabel(wk);
-  const isNow = isCurrentWeek();
-  document.getElementById("week-label").innerHTML =
-    label + (isNow ? '<span class="week-current-dot"></span>' : '');
-  document.getElementById("next-week-btn").disabled = isNow;
-}
-
-function dayHasData(dayId) {
-  const wk = currentWeekKey();
-  const dd = getDayData(wk, dayId);
-  return Object.values(dd).some(ex => (ex.sets||[]).some(v => parseFloat(v) > 0));
-}
-
-function renderTabs() {
-  const container = document.getElementById("day-tabs");
-  container.innerHTML = sessions.map((s, i) => {
-    const hasData = s.type !== 'rust' && dayHasData(s.id);
-    return `
-      <div class="day-tab ${i === activeDay ? 'active' : ''} ${s.type === 'rust' ? 'rest' : ''}"
-           onclick="switchDay(${i})">
-        ${s.label}
-        ${hasData ? '<span class="has-data"></span>' : ''}
-      </div>`;
-  }).join("");
-}
-
 function renderContent() {
   const s = sessions[activeDay];
   const wk = currentWeekKey();
   const isNow = isCurrentWeek();
+
   const content = document.getElementById("content");
-
-  // Show/hide save bar
-  document.getElementById("save-bar").style.display = (s.type === 'rust') ? 'none' : 'flex';
-
-  if (s.type === "rust") {
-    content.innerHTML = `
-      <div class="session-header">
-        <div class="session-name">${s.name}</div>
-        <div class="session-meta">
-          <span class="session-badge badge-rust">${s.typeName}</span>
-        </div>
-      </div>
-      <div class="rest-card">
-        <div class="rest-icon">○</div>
-        <div>${s.tip}</div>
-      </div>`;
-    return;
-  }
-
-  let html = `
-    <div class="session-header">
-      <div class="session-name">${s.name}</div>
-      <div class="session-meta">
-        <span class="session-badge badge-${s.type}">${s.typeName}</span>
-        <span class="session-time">${s.time}</span>
-      </div>
-    </div>`;
-
-  if (!isNow) {
-    html += `<div class="readonly-banner">📅 Je bekijkt week ${weekKeyToLabel(wk)} — alleen lezen</div>`;
-  }
-
-  html += `<div class="section-divider">Straight sets — alle sets per oefening</div>`;
+  let html = `<div class="session-name">${s.name}</div>`;
 
   for (const ex of s.exercises) {
-    const exData = getExData(wk, s.id, ex.id);
-    const advice = ex.noweight ? null : getAdvice(s.id, ex.id);
-    const prevVals = ex.noweight ? null : getPrevSetValues(s.id, ex.id, ex.sets);
+    const data = getExData(wk, s.id, ex.id);
+    const isReps = ex.trackType === "reps";
 
-    html += `<div class="ex-card" id="excard_${ex.id}">`;
-    html += `<div class="ex-top" onclick="${ex.noweight ? '' : `openChart('${s.id}','${ex.id}','${ex.name.replace(/'/g,"\\'")}',${ex.sets})`}">
-      <div class="ex-name-wrap">
-        <div class="ex-name">${ex.name}</div>
-        ${advice ? `<div class="ex-advice">↑ Vorige keer: ${advice}</div>` : ''}
-      </div>
-      <div class="ex-right">
-        <div class="ex-scheme">${ex.sets}×${ex.reps}</div>
-        ${!ex.noweight ? `<div class="ex-chart-btn" title="Bekijk progressie">↗</div>` : ''}
-      </div>
-    </div>`;
-
-    if (ex.noweight) {
-  html += `<div class="no-weight-note">Bodyweight • 3 sets</div>`;
-
-  html += `<div class="sets-row">`;
-  for (let i = 0; i < ex.sets; i++) {
-    const val = exData.sets && exData.sets[i] != null ? exData.sets[i] : "";
     html += `
-      <div class="set-block">
-        <div class="set-num">Set ${i + 1}</div>
-        <div class="set-input-wrap">
-          <input class="set-input"
-                 type="number" inputmode="numeric" min="0" step="1"
-                 placeholder="reps"
-                 value="${val}"
-                 ${!isNow ? 'readonly' : ''}
-                 id="inp_${s.id}_${ex.id}_${i}" />
-          <span class="set-unit">reps</span>
-        </div>
-      </div>`;
-  }
-  html += `</div>`;
-    } else {
-      html += `<div class="sets-row">`;
-      for (let i = 0; i < ex.sets; i++) {
-        const val = exData.sets && exData.sets[i] != null ? exData.sets[i] : "";
-        const prevVal = prevVals ? prevVals[i] : "";
-        const hasPrev = prevVal && parseFloat(prevVal) > 0;
-        const placeholder = hasPrev ? prevVal : "—";
-        html += `
-          <div class="set-block">
-            <div class="set-num">Set ${i + 1}</div>
-            <div class="set-input-wrap">
-              <input class="set-input ${hasPrev ? 'has-prev' : ''}"
-                     type="number" inputmode="decimal" min="0" step="0.5"
-                     placeholder="${placeholder}" value="${val}"
-                     ${!isNow ? 'readonly' : ''}
-                     id="inp_${s.id}_${ex.id}_${i}" />
-              <span class="set-unit">kg</span>
+      <div class="ex-card">
+        <div class="ex-top"
+             onclick="openChart('${s.id}','${ex.id}','${ex.name.replace(/'/g,"\\'")}')">
+
+          <div>
+            <div class="ex-name">${ex.name}</div>
+            <div class="ex-scheme">
+              ${isReps ? `${ex.sets}×${ex.reps} (BW)` : `${ex.sets}×${ex.reps} kg`}
             </div>
-          </div>`;
-      }
-      html += `</div>`;
+          </div>
+        </div>
+
+        <div class="sets-row">
+    `;
+
+    for (let i = 0; i < ex.sets; i++) {
+      const val = data.sets?.[i] || "";
+
+      html += `
+        <input class="set-input"
+               type="number"
+               value="${val}"
+               ${!isNow ? "readonly" : ""}
+               id="inp_${s.id}_${ex.id}_${i}">
+      `;
     }
 
-    const noteVal = exData.note || "";
-    html += `<div class="note-wrap">
-      <textarea class="note-input" rows="1" placeholder="Notitie..."
-                id="note_${s.id}_${ex.id}"
-                ${!isNow ? 'readonly' : ''}
-                oninput="autoResize(this)">${noteVal}</textarea>
-    </div>`;
-    html += `</div>`;
+    html += `</div></div>`;
   }
 
-  html += `<div class="tip-card">${s.tip}</div>`;
   content.innerHTML = html;
-  document.querySelectorAll('.note-input').forEach(autoResize);
 }
 
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = el.scrollHeight + 'px';
-}
-
-function switchDay(i) {
-  activeDay = i;
-  renderTabs();
-  renderContent();
-  const btn = document.getElementById("save-btn");
-  if (btn) { btn.textContent = "Opslaan"; btn.classList.remove("saved"); }
-  window.scrollTo(0, 0);
-}
-
+// =====================
+// SAVE
+// =====================
 function saveSession() {
-  if (!isCurrentWeek()) return;
   const s = sessions[activeDay];
-  if (s.type === "rust") return;
   const wk = currentWeekKey();
 
   for (const ex of s.exercises) {
     const sets = [];
-    if (!ex.noweight) {
-      for (let i = 0; i < ex.sets; i++) {
-        const el = document.getElementById(`inp_${s.id}_${ex.id}_${i}`);
-        sets.push(el ? el.value : "");
-      }
+
+    for (let i = 0; i < ex.sets; i++) {
+      const el = document.getElementById(`inp_${s.id}_${ex.id}_${i}`);
+      sets.push(el?.value || "");
     }
-    const nel = document.getElementById(`note_${s.id}_${ex.id}`);
-    const note = nel ? nel.value : "";
-    setExData(wk, s.id, ex.id, { sets, note });
+
+    setExData(wk, s.id, ex.id, { sets });
   }
 
-  renderTabs(); // update dots
-
-  const btn = document.getElementById("save-btn");
-  btn.textContent = "Opgeslagen ✓";
-  btn.classList.add("saved");
-  setTimeout(() => {
-    btn.textContent = "Opslaan";
-    btn.classList.remove("saved");
-  }, 2200);
-}
-
-function clearSession() {
-  if (!isCurrentWeek()) return;
-  if (!confirm("Gewichten van deze sessie wissen?")) return;
-  const s = sessions[activeDay];
-  const wk = currentWeekKey();
-  const all = loadAllData();
-  if (all[wk] && all[wk][s.id]) {
-    delete all[wk][s.id];
-    saveAllData(all);
-  }
-  renderContent();
-  renderTabs();
+  alert("Opgeslagen");
 }
 
 // =====================
-// CHART MODAL
+// CHART (simpified safe version)
 // =====================
-function openChart(dayId, exId, exName, numSets) {
+function openChart(dayId, exId, exName) {
   const all = loadAllData();
 
-  // Collect all weeks that have data for this exercise, sorted
-  const dataPoints = [];
-  for (const wk of Object.keys(all).sort()) {
-    const ex = (all[wk][dayId] || {})[exId];
-    if (!ex) continue;
-    const vals = (ex.sets || []).map(v => parseFloat(v)).filter(v => !isNaN(v) && v > 0);
-    if (!vals.length) continue;
-    const avg = vals.reduce((a,b) => a+b, 0) / vals.length;
-    const max = Math.max(...vals);
-    dataPoints.push({ wk, avg: parseFloat(avg.toFixed(2)), max: parseFloat(max.toFixed(2)), vals });
-  }
+  const points = Object.keys(all)
+    .sort()
+    .map(wk => {
+      const ex = all[wk]?.[dayId]?.[exId];
+      if (!ex) return null;
 
-  document.getElementById("modal-title").textContent = exName;
-  document.getElementById("modal-sub").textContent = `Gemiddeld gewicht per week (${numSets} sets)`;
+      const vals = (ex.sets || []).map(v => parseFloat(v)).filter(v => !isNaN(v));
+      if (!vals.length) return null;
 
-  const canvas = document.getElementById("chart-canvas");
-  const empty = document.getElementById("chart-empty");
-  const legendEl = document.getElementById("chart-legend");
-  const statRow = document.getElementById("stat-row");
+      return {
+        wk,
+        avg: vals.reduce((a,b)=>a+b,0)/vals.length
+      };
+    })
+    .filter(Boolean);
 
-  if (dataPoints.length < 1) {
-    canvas.style.display = "none";
-    empty.style.display = "block";
-    legendEl.innerHTML = "";
-    statRow.innerHTML = "";
-  } else {
-    canvas.style.display = "block";
-    empty.style.display = "none";
-    drawChart(canvas, dataPoints);
-
-    // Legend
-    legendEl.innerHTML = dataPoints.map(p =>
-      `<div class="legend-item"><div class="legend-dot"></div>${weekKeyToLabel(p.wk)}: ${p.avg} kg gem / ${p.max} kg max</div>`
-    ).join("");
-
-    // Stats
-    let statsHtml = `
-      <div class="stat-box">
-        <div class="stat-label">Laatste sessie</div>
-        <div class="stat-val">${dataPoints[dataPoints.length-1].avg} kg</div>
-      </div>`;
-
-    if (dataPoints.length >= 2) {
-      const diff = dataPoints[dataPoints.length-1].avg - dataPoints[dataPoints.length-2].avg;
-      const diffStr = (diff >= 0 ? "+" : "") + diff.toFixed(1);
-      const cls = diff > 0 ? "pos" : diff < 0 ? "neg" : "";
-      statsHtml += `
-        <div class="stat-box">
-          <div class="stat-label">Trend</div>
-          <div class="stat-val ${cls}">${diffStr} kg</div>
-        </div>`;
-    }
-
-    if (dataPoints.length >= 1) {
-      const allVals = dataPoints.map(p => p.max);
-      statsHtml += `
-        <div class="stat-box">
-          <div class="stat-label">Beste set</div>
-          <div class="stat-val">${Math.max(...allVals)} kg</div>
-        </div>`;
-    }
-
-    statRow.innerHTML = statsHtml;
-  }
-
-  document.getElementById("modal").classList.add("open");
-}
-
-function drawChart(canvas, points) {
-  const dpr = window.devicePixelRatio || 1;
-  const rect = canvas.parentElement.getBoundingClientRect();
-  const W = rect.width;
-  const H = 180;
-  canvas.width = W * dpr;
-  canvas.height = H * dpr;
-  canvas.style.width = W + "px";
-  canvas.style.height = H + "px";
-  const ctx = canvas.getContext("2d");
-  ctx.scale(dpr, dpr);
-
-  const pad = { top: 16, right: 20, bottom: 32, left: 40 };
-  const cw = W - pad.left - pad.right;
-  const ch = H - pad.top - pad.bottom;
-
-  const vals = points.map(p => p.avg);
-  const minV = Math.max(0, Math.min(...vals) - 2);
-  const maxV = Math.max(...vals) + 2;
-  const range = maxV - minV || 1;
-
-  function px(i) { return pad.left + (i / Math.max(points.length - 1, 1)) * cw; }
-  function py(v) { return pad.top + ch - ((v - minV) / range) * ch; }
-
-  // Grid lines
-  ctx.strokeStyle = "rgba(255,255,255,0.05)";
-  ctx.lineWidth = 1;
-  for (let g = 0; g <= 4; g++) {
-    const y = pad.top + (g / 4) * ch;
-    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + cw, y); ctx.stroke();
-    const label = (maxV - (g / 4) * range).toFixed(1);
-    ctx.fillStyle = "rgba(240,237,232,0.35)";
-    ctx.font = `9px 'DM Mono', monospace`;
-    ctx.textAlign = "right";
-    ctx.fillText(label, pad.left - 5, y + 3);
-  }
-
-  // X axis labels
-  ctx.fillStyle = "rgba(240,237,232,0.35)";
-  ctx.font = `9px 'DM Mono', monospace`;
-  ctx.textAlign = "center";
-  points.forEach((p, i) => {
-    ctx.fillText(weekKeyToLabel(p.wk), px(i), H - 6);
-  });
-
-  if (points.length === 1) {
-    // Single dot
-    ctx.fillStyle = "#c8f06e";
-    ctx.beginPath();
-    ctx.arc(px(0), py(vals[0]), 5, 0, Math.PI * 2);
-    ctx.fill();
-    return;
-  }
-
-  // Fill gradient
-  const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + ch);
-  grad.addColorStop(0, "rgba(200,240,110,0.22)");
-  grad.addColorStop(1, "rgba(200,240,110,0)");
-  ctx.beginPath();
-  ctx.moveTo(px(0), py(vals[0]));
-  for (let i = 1; i < points.length; i++) ctx.lineTo(px(i), py(vals[i]));
-  ctx.lineTo(px(points.length - 1), pad.top + ch);
-  ctx.lineTo(px(0), pad.top + ch);
-  ctx.closePath();
-  ctx.fillStyle = grad;
-  ctx.fill();
-
-  // Line
-  ctx.beginPath();
-  ctx.strokeStyle = "#c8f06e";
-  ctx.lineWidth = 2;
-  ctx.lineJoin = "round";
-  ctx.moveTo(px(0), py(vals[0]));
-  for (let i = 1; i < points.length; i++) ctx.lineTo(px(i), py(vals[i]));
-  ctx.stroke();
-
-  // Dots
-  vals.forEach((v, i) => {
-    ctx.beginPath();
-    ctx.fillStyle = "#c8f06e";
-    ctx.arc(px(i), py(v), 4, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = "#1a1a1a";
-    ctx.arc(px(i), py(v), 2, 0, Math.PI * 2);
-    ctx.fill();
-  });
-}
-
-function closeModal(e) {
-  if (!e || e.target === document.getElementById("modal")) {
-    document.getElementById("modal").classList.remove("open");
-  }
+  console.log(exName, points);
+  alert("Chart data in console (basis fix actief)");
 }
 
 // =====================
 // INIT
 // =====================
 function init() {
-  // Auto-select today
-  const dayMap = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 0: 6 };
-  activeDay = dayMap[new Date().getDay()] ?? 0;
-  renderWeekLabel();
-  renderTabs();
   renderContent();
 }
 
